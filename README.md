@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🎓 AI Based Smart Career Guidance and Internship Portal
 
 > A Final Year Computer Science Engineering Project  
@@ -41,25 +41,25 @@ The system uses a skill-matching algorithm to calculate compatibility scores bet
 
 ```
 AI-Career-Portal/
-├── app.py                  # Flask application factory
-├── models.py               # SQLAlchemy database models
-├── init_db.py              # DB initialisation + seed script
-├── requirements.txt        # Python dependencies
+├── app.py                
+├── models.py              
+├── init_db.py             
+├── requirements.txt       
 ├── .gitignore
 ├── README.md
 │
 ├── routes/
 │   ├── __init__.py
-│   ├── main.py             # Landing page
-│   ├── auth.py             # Register / Login / Logout
-│   ├── dashboard.py        # Student dashboard
-│   ├── careers.py          # Career guidance
-│   ├── internships.py      # Internship listings
-│   └── profile.py          # Student profile
+│   ├── main.py            
+│   ├── auth.py            
+│   ├── dashboard.py       
+│   ├── careers.py          
+│   ├── internships.py      
+│   └── profile.py          
 │
 ├── templates/
-│   ├── base.html           # Shared layout (navbar + footer)
-│   ├── index.html          # Landing page
+│   ├── base.html          
+│   ├── index.html         
 │   ├── dashboard.html
 │   ├── careers.html
 │   ├── internships.html
@@ -69,119 +69,7 @@ AI-Career-Portal/
 │       └── register.html
 │
 └── static/
-    ├── css/style.css       # Custom styles + CSS variables
-    └── js/main.js          # Chart.js init, animations, helpers
+    ├── css/style.css      
+    └── js/main.js         
 ```
 
----
-
-## ⚙️ Setup Instructions (Windows)
-
-### Step 1 – Clone or download the project
-
-```cmd
-cd Desktop
-:: if cloned from GitHub:
-git clone https://github.com/YOUR_USERNAME/AI-Career-Portal.git
-cd AI-Career-Portal
-```
-
-### Step 2 – Create and activate a virtual environment
-
-```cmd
-python -m venv venv
-venv\Scripts\activate
-```
-
-> You should see `(venv)` at the start of your prompt.
-
-### Step 3 – Install dependencies
-
-```cmd
-pip install -r requirements.txt
-```
-
-### Step 4 – Initialise the database and seed data
-
-```cmd
-python init_db.py
-```
-
-This creates `instance/career_portal.db` with all tables and sample data.
-
-### Step 5 – Run the application
-
-```cmd
-python app.py
-```
-
-Open your browser and go to: **http://127.0.0.1:5000**
-
-### 🔑 Demo Login
-
-| Field | Value |
-|---|---|
-| Email | `demo@example.com` |
-| Password | `demo123` |
-
----
-
-## 📸 Pages
-
-| Page | URL |
-|---|---|
-| Landing | `/` |
-| Register | `/auth/register` |
-| Login | `/auth/login` |
-| Dashboard | `/dashboard/` |
-| Career Guidance | `/careers/` |
-| Internships | `/internships/` |
-| Profile | `/profile/` |
-
----
-
-## 🔒 Security
-
-- Passwords are **bcrypt/PBKDF2 hashed** using `werkzeug.security`
-- All dashboard/career/internship/profile routes are **login-protected**
-- Flask `SECRET_KEY` is used for secure session management
-- CSRF protection is provided by Flask sessions
-
----
-
-## 🚀 Upload to GitHub
-
-```cmd
-:: 1. Initialise git (if not already)
-git init
-git add .
-git commit -m "Initial commit: AI Career Portal"
-
-:: 2. Create a new repo on github.com, then link it:
-git remote add origin https://github.com/YOUR_USERNAME/AI-Career-Portal.git
-git branch -M main
-git push -u origin main
-```
-
----
-
-## 👩‍💻 Developer
-
-| Name | Role |
-|---|---|
-| [Your Name] | Developer – Final Year CSE Project |
-
----
-
-## 📄 License
-
-This project is created for **educational purposes** as a final year college project.  
-Free to use and modify for academic submissions.
-
----
-
-*Made with ❤️ using Python Flask and Bootstrap 5*
-=======
-# AI-Career-Portal
-AI-Career-Portal built using Python Flask, HTML, CSS, Bootstrap, JavaScript, and SQLite. Helps students explore suitable career paths based on their skills and interests, discover internship opportunities, and manage their profiles through a user-friendly dashboard.
->>>>>>> 5e8e72f2583181fdd1e0d60f3ff157d0414e2026
