@@ -8,7 +8,7 @@
 
 ## 📌 Project Overview
 
-The **AI Based Smart Career Guidance and Internship Portal** is a web application that helps students discover suitable career paths and internship opportunities based on their skills and interests.  
+The **AI Career Portal** is a web application that helps students discover suitable career paths and internship opportunities based on their skills and interests.  
 The system uses a skill-matching algorithm to calculate compatibility scores between a student's profile and available career paths, presenting personalised recommendations on an attractive, responsive dashboard.
 
 ---
@@ -19,7 +19,7 @@ The system uses a skill-matching algorithm to calculate compatibility scores bet
 |---|---|
 | 🏠 Landing Page | Modern hero section with feature highlights |
 | 🔐 Authentication | Secure register / login / logout with password hashing |
-| 📊 Dashboard | Colorful stat cards, career matches with progress bars, skill doughnut chart |
+| 📊 Dashboard | Colorful stat cards, career matches with progress bars |
 | 🧭 Career Guidance | AI-matched career paths with skill gap analysis |
 | 💼 Internships | Search & filter internships by role, company, location, category, and remote |
 | 👤 Student Profile | Manage skills (checkbox picker), education, CGPA, and interests |
@@ -33,8 +33,7 @@ The system uses a skill-matching algorithm to calculate compatibility scores bet
 - **Backend:** Python 3.10+, Flask 3.x
 - **Database:** SQLite (via SQLAlchemy ORM)
 - **Charts:** Chart.js 4
-- **Auth:** Flask-Login + Werkzeug password hashing
-
+- **Auth:** Flask-Login 
 ---
 
 ## 📁 Project Structure
