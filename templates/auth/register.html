@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Register – AI Career Portal{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <!-- Logo -->
+    <div class="text-center mb-4">
+      <div class="auth-logo mb-1">AI<span>Career</span></div>
+      <p class="text-muted small">Create your free account</p>
+    </div>
+
+    <!-- Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-custom">
+          <i class="bi bi-info-circle-fill me-2"></i>{{ message }}
+        </div>
+      {% endfor %}
+    {% endwith %}
+
+    <!-- Form -->
+    <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+
+      <div class="mb-3">
+        <label class="form-label-custom">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0" style="border:2px solid #e2e8f0;border-radius:12px 0 0 12px;">
+            <i class="bi bi-person-fill text-muted"></i>
+          </span>
+          <input type="text" name="name" class="form-control form-control-custom border-start-0"
+                 placeholder="Your full name" required
+                 style="border-left:none;border-radius:0 12px 12px 0;">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label-custom">Email Address</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0" style="border:2px solid #e2e8f0;border-radius:12px 0 0 12px;">
+            <i class="bi bi-envelope-fill text-muted"></i>
+          </span>
+          <input type="email" name="email" class="form-control form-control-custom border-start-0"
+                 placeholder="you@example.com" required
+                 style="border-left:none;border-radius:0 12px 12px 0;">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label-custom">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0" style="border:2px solid #e2e8f0;border-radius:12px 0 0 12px;">
+            <i class="bi bi-lock-fill text-muted"></i>
+          </span>
+          <input type="password" name="password" id="regPwd" class="form-control form-control-custom border-start-0"
+                 placeholder="Min 6 characters" required
+                 style="border-left:none;border-radius:0 12px 12px 0;">
+          <span class="input-group-text bg-white" style="border:2px solid #e2e8f0;border-left:none;border-radius:0 12px 12px 0;cursor:pointer;"
+                onclick="togglePwd('regPwd',this)">
+            <i class="bi bi-eye-fill text-muted"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label-custom">Confirm Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0" style="border:2px solid #e2e8f0;border-radius:12px 0 0 12px;">
+            <i class="bi bi-shield-lock-fill text-muted"></i>
+          </span>
+          <input type="password" name="confirm_password" id="regPwd2" class="form-control form-control-custom border-start-0"
+                 placeholder="Re-enter password" required
+                 style="border-left:none;border-radius:0 12px 12px 0;">
+          <span class="input-group-text bg-white" style="border:2px solid #e2e8f0;border-left:none;border-radius:0 12px 12px 0;cursor:pointer;"
+                onclick="togglePwd('regPwd2',this)">
+            <i class="bi bi-eye-fill text-muted"></i>
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary-custom w-100">
+        <i class="bi bi-person-check-fill me-2"></i>Create Account
+      </button>
+    </form>
+
+    <p class="text-center small mt-4 text-muted">
+      Already have an account?
+      <a href="{{ url_for('auth.login') }}" class="text-decoration-none fw-600" style="color:var(--primary);">Login here</a>
+    </p>
+  </div>
+</div>
+
+<script>
+function togglePwd(id, btn) {
+  const inp  = document.getElementById(id);
+  const icon = btn.querySelector('i');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    icon.classList.replace('bi-eye-fill', 'bi-eye-slash-fill');
+  } else {
+    inp.type = 'password';
+    icon.classList.replace('bi-eye-slash-fill', 'bi-eye-fill');
+  }
+}
+</script>
+{% endblock %}

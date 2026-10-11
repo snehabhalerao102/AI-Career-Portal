@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – AI Career Portal{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <h1 class="mb-1"><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</h1>
+        <p class="mb-0 opacity-75">Welcome back, <strong>{{ current_user.name }}</strong>! Here's your career snapshot.</p>
+      </div>
+      <a href="{{ url_for('profile.index') }}" class="btn btn-light btn-sm fw-semibold rounded-pill px-3">
+        <i class="bi bi-pencil-fill me-1"></i>Edit Profile
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4">
+
+  <!-- ── Stat Cards ── -->
+  <div class="row g-4 mb-4">
+    <div class="col-6 col-lg-3">
+      <div class="stat-card sc-1">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="stat-num" data-countup="{{ total_skills }}">0</div>
+            <div class="stat-lbl">Skills Added</div>
+          </div>
+          <i class="bi bi-lightning-charge-fill stat-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card sc-2">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="stat-num" data-countup="{{ total_careers }}">0</div>
+            <div class="stat-lbl">Career Paths</div>
+          </div>
+          <i class="bi bi-compass-fill stat-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card sc-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="stat-num" data-countup="{{ total_internships }}">0</div>
+            <div class="stat-lbl">Internships</div>
+          </div>
+          <i class="bi bi-briefcase-fill stat-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card sc-4">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="stat-num">
+              {% if current_user.cgpa %}{{ current_user.cgpa }}{% else %}N/A{% endif %}
+            </div>
+            <div class="stat-lbl">CGPA</div>
+          </div>
+          <i class="bi bi-award-fill stat-icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- ── Top Career Matches ── -->
+    <div class="col-lg-8">
+      <div class="card-custom h-100">
+        <div class="card-header-custom">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-stars text-primary fs-5"></i>
+            <span class="fw-700">Top Career Matches for You</span>
+          </div>
+          <a href="{{ url_for('careers.index') }}" class="btn btn-sm btn-outline-primary rounded-pill">View All</a>
+        </div>
+        <div class="card-body-custom">
+          {% if top_careers %}
+            {% for career, pct in top_careers %}
+            <div class="d-flex align-items-start gap-3 mb-4 pb-3 {% if not loop.last %}border-bottom{% endif %}">
+              <div class="career-icon {% if loop.index == 1 %}fi-purple{% elif loop.index == 2 %}fi-cyan{% elif loop.index == 3 %}fi-green{% else %}fi-orange{% endif %}">
+                <i class="bi {{ career.icon or 'bi-code-slash' }}"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="fw-700">{{ career.title }}</span>
+                  <span class="fw-700 {% if pct >= 70 %}text-success{% elif pct >= 40 %}text-primary{% else %}text-warning{% endif %}">{{ pct }}%</span>
+                </div>
+                <div class="match-bar-wrap mb-1">
+                  <div class="match-bar-fill" data-pct="{{ pct }}"></div>
+                </div>
+                <small class="text-muted">{{ career.avg_salary }} avg · {{ career.growth_rate }} growth</small>
+              </div>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center py-4">
+              <i class="bi bi-person-plus-fill fs-1 text-muted opacity-50"></i>
+              <p class="text-muted mt-2">Add skills to your profile to see career matches.</p>
+              <a href="{{ url_for('profile.index') }}" class="btn-primary-custom">Update Profile</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Skill Chart ── -->
+    <div class="col-lg-4">
+      <div class="card-custom h-100">
+        <div class="card-header-custom">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-pie-chart-fill text-primary fs-5"></i>
+            <span class="fw-700">Your Skills</span>
+          </div>
+        </div>
+        <div class="card-body-custom d-flex flex-column align-items-center">
+          {% if skill_categories %}
+            <canvas id="skillChart"
+                    data-labels='{{ skill_categories.keys() | list | tojson }}'
+                    data-values='{{ skill_categories.values() | list | tojson }}'
+                    style="max-height:240px;"></canvas>
+          {% else %}
+            <div class="text-center py-4">
+              <i class="bi bi-lightning-charge fs-1 text-muted opacity-50"></i>
+              <p class="text-muted mt-2 small">No skills added yet.</p>
+              <a href="{{ url_for('profile.index') }}" class="btn-primary-custom">Add Skills</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /row -->
+
+  <!-- ── Recent Internships ── -->
+  <div class="card-custom mt-4">
+    <div class="card-header-custom">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-briefcase-fill text-primary fs-5"></i>
+        <span class="fw-700">Recent Internship Listings</span>
+      </div>
+      <a href="{{ url_for('internships.index') }}" class="btn btn-sm btn-outline-primary rounded-pill">Browse All</a>
+    </div>
+    <div class="card-body-custom">
+      {% if recent_internships %}
+      <div class="row g-3">
+        {% for internship in recent_internships %}
+        <div class="col-md-4">
+          <div class="internship-card h-100">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="company-badge">{{ internship.company[:2].upper() }}</div>
+              {% if internship.is_remote %}
+                <span class="chip remote"><i class="bi bi-wifi me-1"></i>Remote</span>
+              {% else %}
+                <span class="chip onsite"><i class="bi bi-building me-1"></i>On-site</span>
+              {% endif %}
+            </div>
+            <h6 class="fw-700 mt-2">{{ internship.title }}</h6>
+            <p class="text-muted small mb-1"><i class="bi bi-building me-1"></i>{{ internship.company }}</p>
+            <p class="text-muted small mb-2"><i class="bi bi-geo-alt me-1"></i>{{ internship.location }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-success small fw-600"><i class="bi bi-currency-rupee"></i>{{ internship.stipend }}</span>
+              <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ internship.duration }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <p class="text-muted text-center py-3">No internships found yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div><!-- /container -->
+{% endblock %}

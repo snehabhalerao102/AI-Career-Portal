@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}AI Smart Career Portal – Find Your Path{% endblock %}
+
+{% block content %}
+
+<!-- ══════════════════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center gy-5">
+
+      <!-- Left: copy -->
+      <div class="col-lg-6 hero-content">
+        <div class="hero-badge">
+          <i class="bi bi-stars me-1"></i> AI-Powered Career Guidance
+        </div>
+        <h1>Discover Your <br><span style="color:#a5f3fc;">Dream Career</span><br>&amp; Internship</h1>
+        <p class="lead mt-3 mb-4">
+          Get personalised career recommendations based on your skills,
+          explore hundreds of internship opportunities, and build the future you deserve.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{{ url_for('auth.register') }}" class="btn-primary-custom">
+            <i class="bi bi-rocket-takeoff-fill me-2"></i>Get Started Free
+          </a>
+          <a href="{{ url_for('auth.login') }}" class="btn-outline-custom" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.5);color:#fff;">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: stats card -->
+      <div class="col-lg-5 offset-lg-1">
+        <div class="hero-card">
+          <p class="text-white fw-600 mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Portal at a Glance</p>
+          <div class="row g-3">
+            <div class="col-6 hero-stat">
+              <div class="num" data-countup="50">0</div>
+              <div class="lbl">Career Paths</div>
+            </div>
+            <div class="col-6 hero-stat">
+              <div class="num" data-countup="200">0</div>
+              <div class="lbl">Internships</div>
+            </div>
+            <div class="col-6 hero-stat">
+              <div class="num" data-countup="80">0</div>
+              <div class="lbl">Skills Tracked</div>
+            </div>
+            <div class="col-6 hero-stat">
+              <div class="num" data-countup="100">0</div>
+              <div class="lbl">% Free</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FEATURES SECTION
+══════════════════════════════════════════════════════ -->
+<section class="py-5 mt-4">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title gradient-text">Everything You Need</h2>
+      <p class="section-sub mt-2">A complete platform to guide your career from college to your first job.</p>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon fi-purple"><i class="bi bi-cpu-fill"></i></div>
+          <h5 class="fw-700">AI Career Match</h5>
+          <p class="text-muted small mb-0">Get personalised career recommendations matched to your skills and interests automatically.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon fi-cyan"><i class="bi bi-briefcase-fill"></i></div>
+          <h5 class="fw-700">Internship Finder</h5>
+          <p class="text-muted small mb-0">Search and filter internships by role, location, stipend and remote availability.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon fi-green"><i class="bi bi-bar-chart-line-fill"></i></div>
+          <h5 class="fw-700">Skill Dashboard</h5>
+          <p class="text-muted small mb-0">Track your skills visually with charts. See exactly what you need to reach your goal.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card">
+          <div class="feature-icon fi-orange"><i class="bi bi-person-badge-fill"></i></div>
+          <h5 class="fw-700">Smart Profile</h5>
+          <p class="text-muted small mb-0">Manage your education, skills and interests in one place. Always up to date.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     HOW IT WORKS
+══════════════════════════════════════════════════════ -->
+<section class="py-5" style="background:#fff;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub mt-2 text-muted">Three simple steps to land your dream internship.</p>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-4">
+        <div class="p-4">
+          <div class="d-flex align-items-center justify-content-center mb-3"
+               style="width:64px;height:64px;border-radius:50%;background:var(--grad-1);margin:0 auto;">
+            <span class="text-white fw-800 fs-4">1</span>
+          </div>
+          <h5 class="fw-700">Create an Account</h5>
+          <p class="text-muted small">Register in seconds with your name, email and password.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4">
+          <div class="d-flex align-items-center justify-content-center mb-3"
+               style="width:64px;height:64px;border-radius:50%;background:var(--grad-2);margin:0 auto;">
+            <span class="text-white fw-800 fs-4">2</span>
+          </div>
+          <h5 class="fw-700">Fill Your Profile</h5>
+          <p class="text-muted small">Add your skills, education and interests to power the AI engine.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-4">
+          <div class="d-flex align-items-center justify-content-center mb-3"
+               style="width:64px;height:64px;border-radius:50%;background:var(--grad-3);margin:0 auto;">
+            <span class="text-white fw-800 fs-4">3</span>
+          </div>
+          <h5 class="fw-700">Discover &amp; Apply</h5>
+          <p class="text-muted small">Get matched careers and internships tailored just for you.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="{{ url_for('auth.register') }}" class="btn-primary-custom">
+        <i class="bi bi-arrow-right-circle-fill me-2"></i>Start Now – It's Free
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

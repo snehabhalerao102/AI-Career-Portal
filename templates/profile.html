@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}My Profile – AI Career Portal{% endblock %}
+
+{% block extra_css %}
+<style>
+  .skill-label {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: #f8fafc; border: 2px solid var(--border);
+    border-radius: 50px; padding: .3rem .85rem;
+    font-size: .82rem; font-weight: 600; cursor: pointer;
+    transition: all .2s; margin: .2rem;
+    color: var(--text-muted);
+    user-select: none;
+  }
+  .skill-label.skill-checked {
+    background: linear-gradient(135deg,#ede9fe,#ddd6fe);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .skill-label input { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1 class="mb-1"><i class="bi bi-person-circle me-2"></i>My Profile</h1>
+    <p class="mb-0 opacity-75">Manage your education, skills and interests to improve career matches.</p>
+  </div>
+</div>
+
+<div class="container py-4">
+  <form method="POST" action="{{ url_for('profile.update') }}">
+    <div class="row g-4">
+
+      <!-- ── Left column: personal info ── -->
+      <div class="col-lg-5">
+
+        <!-- Profile Card -->
+        <div class="card-custom mb-4">
+          <div class="card-header-custom">
+            <span class="fw-700"><i class="bi bi-person-fill me-2 text-primary"></i>Personal Information</span>
+          </div>
+          <div class="card-body-custom">
+
+            <!-- Avatar -->
+            <div class="text-center mb-4">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle"
+                   style="width:80px;height:80px;background:var(--grad-1);font-size:2rem;color:#fff;font-weight:800;">
+                {{ current_user.name[0].upper() }}
+              </div>
+              <p class="fw-700 mb-0 mt-2">{{ current_user.name }}</p>
+              <small class="text-muted">{{ current_user.email }}</small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label-custom">Full Name</label>
+              <input type="text" name="name" value="{{ current_user.name }}" class="form-control-custom" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label-custom">College / University</label>
+              <input type="text" name="college" value="{{ current_user.college or '' }}" class="form-control-custom" placeholder="e.g. IIT Bombay">
+            </div>
+
+            <div class="row g-3">
+              <div class="col-6">
+                <label class="form-label-custom">Degree</label>
+                <select name="degree" class="form-select-custom">
+                  <option value="">Select</option>
+                  {% for d in ['B.Tech', 'B.E.', 'BCA', 'BSc', 'M.Tech', 'MCA', 'MBA', 'Other'] %}
+                    <option value="{{ d }}" {% if current_user.degree == d %}selected{% endif %}>{{ d }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">Branch</label>
+                <input type="text" name="branch" value="{{ current_user.branch or '' }}" class="form-control-custom" placeholder="e.g. CSE">
+              </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-6">
+                <label class="form-label-custom">Year of Study</label>
+                <select name="year" class="form-select-custom">
+                  <option value="">Select</option>
+                  {% for y in [1,2,3,4] %}
+                    <option value="{{ y }}" {% if current_user.year == y %}selected{% endif %}>Year {{ y }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label-custom">CGPA</label>
+                <input type="number" name="cgpa" step="0.01" min="0" max="10"
+                       value="{{ current_user.cgpa or '' }}" class="form-control-custom" placeholder="e.g. 8.5">
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label-custom">Bio</label>
+              <textarea name="bio" rows="3" class="form-control-custom" placeholder="Tell us about yourself…">{{ current_user.bio or '' }}</textarea>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label-custom">Interests <small class="text-muted fw-400">(comma-separated)</small></label>
+              <input type="text" name="interests" value="{{ current_user.interests or '' }}"
+                     class="form-control-custom" placeholder="e.g. Machine Learning, Web Dev, Data Science">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Right column: skills ── -->
+      <div class="col-lg-7">
+
+        <div class="card-custom mb-4">
+          <div class="card-header-custom">
+            <span class="fw-700"><i class="bi bi-lightning-charge-fill me-2 text-primary"></i>Skills
+              <small class="text-muted fw-400 ms-2">Select all that apply</small>
+            </span>
+            <span class="badge bg-primary rounded-pill" id="skillCount">
+              {{ current_user.skills.count() }} selected
+            </span>
+          </div>
+          <div class="card-body-custom">
+
+            {% set student_skill_ids = current_user.skills_list() %}
+            {% set categories = all_skills | groupby('category') %}
+
+            {% for category, skills in categories %}
+            <div class="mb-4">
+              <p class="fw-700 text-muted small text-uppercase letter-spacing-1 mb-2">
+                <i class="bi bi-tag-fill me-1"></i>{{ category or 'Other' }}
+              </p>
+              <div>
+                {% for skill in skills %}
+                <label class="skill-label {% if skill.name in student_skill_ids %}skill-checked{% endif %}">
+                  <input type="checkbox"
+                         name="skills"
+                         value="{{ skill.id }}"
+                         class="skill-checkbox"
+                         {% if skill.name in student_skill_ids %}checked{% endif %}>
+                  <i class="bi bi-check2 me-1"></i>{{ skill.name }}
+                </label>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <!-- Save button -->
+        <div class="d-flex justify-content-end gap-3">
+          <a href="{{ url_for('dashboard.index') }}" class="btn-outline-custom">Cancel</a>
+          <button type="submit" class="btn-primary-custom">
+            <i class="bi bi-check-circle-fill me-2"></i>Save Profile
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Live skill counter
+document.querySelectorAll('.skill-checkbox').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const count = document.querySelectorAll('.skill-checkbox:checked').length;
+    document.getElementById('skillCount').textContent = count + ' selected';
+  });
+});
+</script>
+{% endblock %}
