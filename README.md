@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 AI Based Smart Career Guidance and Internship Portal
 
 > A Final Year Computer Science Engineering Project  
@@ -180,3 +181,7 @@ Free to use and modify for academic submissions.
 ---
 
 *Made with ❤️ using Python Flask and Bootstrap 5*
+=======
+# AI-Career-Portal
+AI-Career-Portal built using Python Flask, HTML, CSS, Bootstrap, JavaScript, and SQLite. Helps students explore suitable career paths based on their skills and interests, discover internship opportunities, and manage their profiles through a user-friendly dashboard.
+>>>>>>> 5e8e72f2583181fdd1e0d60f3ff157d0414e2026
